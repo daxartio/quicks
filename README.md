@@ -1,0 +1,3 @@
+# Quicks
+
+Project generator
