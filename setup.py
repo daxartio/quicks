@@ -2,20 +2,21 @@ from setuptools import setup
 from codecs import open  # To use a consistent encoding
 from os import path
 
-from m2r import parse_from_file
+from quicks import VERSION
 
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the relevant file
-readme = parse_from_file(path.join(here, 'README.md'), encoding='utf-8')
+with open(path.join(here, 'README.rst')) as f:
+    long_description = f.read()
 
 setup(
     name='quicks',
 
-    version='0.0.1',
+    version=VERSION,
 
     description='Python module to generate project',
-    long_description=readme,
+    long_description=long_description,
     long_description_content_type='text/x-rst',
 
     url='https://github.com/daxartio/quicks',
@@ -55,7 +56,7 @@ setup(
     # project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
-    install_requires=['PyYAML'],
+    install_requires=['PyYAML==5.1.2'],
     entry_points={
         'console_scripts': ['quicks=quicks.__main__:main'],
     }
