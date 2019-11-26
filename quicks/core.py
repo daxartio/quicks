@@ -1,13 +1,19 @@
 import os
 import yaml
 
+from jinja2 import Environment, BaseLoader
+
 from quicks.exceptions import PathExistsError
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 VERSION = __version__
 
 
-def process_project(path, project, template):
+def get_env():
+    return Environment(loader=BaseLoader)
+
+
+def process_project(env, path, project, template):
     project_path = os.path.join(path, project)
     if os.path.exists(project_path):
         raise PathExistsError
@@ -16,13 +22,8 @@ def process_project(path, project, template):
     project_files, templates, *_ = template
     for file in project_files:
         kwargs = dict(project=project)
-        file_template = templates.get(file, '')
-        if isinstance(file_template, str):
-            file_template = file_template.format(**kwargs)
-        elif callable(file_template):
-            file_template = file_template(kwargs)
-
-        file_path = os.path.join(project_path, file.format(**kwargs))
+        file_template = env.from_string(templates.get(file, '')).render(**kwargs)
+        file_path = os.path.join(project_path, env.from_string(file).render(**kwargs))
         file_dir = os.path.dirname(file_path)
         if not os.path.exists(file_dir):
             os.makedirs(file_dir)

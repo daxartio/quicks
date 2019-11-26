@@ -56,7 +56,7 @@ setup(
     # project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
-    install_requires=['PyYAML==5.1.2'],
+    install_requires=['PyYAML==5.1.2', 'Jinja2==2.10.3'],
     entry_points={
         'console_scripts': ['quicks=quicks.__main__:main'],
     }

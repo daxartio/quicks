@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from quicks import VERSION, process_project, parse_template
+from quicks import VERSION, process_project, parse_template, get_env
 
 
 def main():
@@ -10,7 +10,7 @@ def main():
     arg_parser.add_argument('template', type=str)
     arg_parser.add_argument('--path', '-p', type=str)
     args = arg_parser.parse_args()
-    process_project(args.path or os.getcwd(), args.project, parse_template(args.template))
+    process_project(get_env(), args.path or os.getcwd(), args.project, parse_template(args.template))
 
 
 if __name__ == '__main__':

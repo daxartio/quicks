@@ -1,40 +1,51 @@
+version: 1
+
+vars:
+  title:
+    type: string
+    default: '{{project}}'
+    description: 'Project title:'
+  adding_gitignore:
+    type: boolean
+    default: true
+    description: 'Add .gitignore?'
+
 files:
-  - '{project}/api/handlers/__init__.py'
-  - '{project}/api/__init__.py'
-  - '{project}/configs/logging.yml'
-  - '{project}/spec/openapi.yaml'
-  - '{project}/__init__.py'
-  - '{project}/__main__.py'
-  - '{project}/requirements.txt'
+  - '{{project}}/api/handlers/__init__.py'
+  - '{{project}}/api/__init__.py'
+  - '{{project}}/configs/logging.yml'
+  - '{{project}}/spec/openapi.yaml'
+  - '{{project}}/__init__.py'
+  - '{{project}}/__main__.py'
+  - '{{project}}/requirements.txt'
   - '.gitignore'
   - 'LICENSE'
   - 'Dockerfile'
   - 'README.md'
 
 templates:
-  '{project}/__init__.py': |
+  '{{project}}/__init__.py': |
     import os
     import logging.config
     import yaml
 
-
     BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
-    with open(f'{{BASE_DIR}}/configs/logging.yml', 'r') as __file:
+    with open(f'{BASE_DIR}/configs/logging.yml', 'r') as __file:
         logging.config.dictConfig(yaml.load(__file.read(), Loader=yaml.FullLoader))
 
     logger = logging.getLogger(__name__)
-  '{project}/spec/openapi.yaml': |
+  '{{project}}/spec/openapi.yaml': |
     openapi: 3.0.1
     info:
-      title: {project}
+      title: {{project}}
       description: ''
       version: 0.0.1
     servers:
       - url: /api
         description: Main api
-    paths: {{}}
-  '{project}/configs/logging.yml': |
+    paths: {}
+  '{{project}}/configs/logging.yml': |
     version: 1
 
     root:
@@ -44,7 +55,7 @@ templates:
     disable_existing_loggers: true
 
     loggers:
-      {project}:
+      {{project}}:
         level: DEBUG
 
     handlers:
@@ -60,13 +71,13 @@ templates:
       brief:
         format:  "[%(levelname)-8s] %(asctime)s '%(name)s': %(message)s"
         datefmt: "%Y-%m-%d %H:%M:%S"
-  '{project}/requirements.txt': |
+  '{{project}}/requirements.txt': |
     aiohttp==3.6.2
     PyYAML==5.1.2
     connexion==2.4.0
     swagger-ui-bundle==0.0.5
     aiohttp_jinja2==1.1.0
-  '{project}/__main__.py': |
+  '{{project}}/__main__.py': |
     def main():
         pass
 
@@ -74,7 +85,7 @@ templates:
     if __name__ == '__main__':
         main()
   'README.md': |
-    # {project}
+    # {{project}}
   '.gitignore': |
     .idea
     venv
