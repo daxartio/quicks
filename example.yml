@@ -11,8 +11,8 @@ vars:
     description: 'Add .gitignore?'
 
 files:
-  - '{{project}}/api/handlers/__init__.py'
-  - '{{project}}/api/__init__.py'
+  - ['{{project}}/api/handlers/__init__.py', 'alias']
+  - ['{{project}}/api/__init__.py', 'alias']
   - '{{project}}/configs/logging.yml'
   - '{{project}}/spec/openapi.yaml'
   - '{{project}}/__init__.py'
@@ -24,6 +24,8 @@ files:
   - 'README.md'
 
 templates:
+  'alias': |
+    # auto generate
   '{{project}}/__init__.py': |
     import os
     import logging.config

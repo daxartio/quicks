@@ -15,7 +15,7 @@ example.yml Jinja2 style
 .. code-block:: yaml
 
    files:
-     - '{{project}}/__init__.py'
+     - ['{{project}}/__init__.py', 'alias']
      - '{{project}}/__main__.py'
      - '{{project}}/requirements.txt'
      - '.gitignore'
@@ -24,5 +24,7 @@ example.yml Jinja2 style
      - 'README.md'
 
    templates:
+     'alias': |
+       # auto generate
      'README.md': |
        # {{project}}

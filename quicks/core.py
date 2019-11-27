@@ -5,7 +5,7 @@ from jinja2 import Environment, BaseLoader
 
 from quicks.exceptions import PathExistsError
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 VERSION = __version__
 
 
@@ -20,10 +20,16 @@ def process_project(env, path, project, template):
 
     os.makedirs(project_path)
     project_files, templates, *_ = template
+    kwargs = dict(project=project)
     for file in project_files:
-        kwargs = dict(project=project)
-        file_template = env.from_string(templates.get(file, '')).render(**kwargs)
-        file_path = os.path.join(project_path, env.from_string(file).render(**kwargs))
+        alias = None
+        if isinstance(file, list):
+            file, alias, *_ = file
+        file_template = env.from_string(templates.get(alias or file, '')).render(**kwargs)
+        file_name = env.from_string(file).render(**kwargs)
+        if not file_name:
+            continue
+        file_path = os.path.join(project_path, file_name)
         file_dir = os.path.dirname(file_path)
         if not os.path.exists(file_dir):
             os.makedirs(file_dir)
@@ -36,3 +42,13 @@ def parse_template(path):
         data = yaml.load(f, yaml.FullLoader)
 
     return data.get('files', []), data.get('templates', {})
+
+
+__all__ = (
+    '__version__',
+    'VERSION',
+    'get_env',
+    'process_project',
+    'process_project',
+    'parse_template',
+)

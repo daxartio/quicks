@@ -2,8 +2,6 @@ from setuptools import setup
 from codecs import open  # To use a consistent encoding
 from os import path
 
-from quicks import VERSION
-
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the relevant file
@@ -13,7 +11,7 @@ with open(path.join(here, 'README.rst')) as f:
 setup(
     name='quicks',
 
-    version=VERSION,
+    version='0.0.4',
 
     description='Python module to generate project',
     long_description=long_description,

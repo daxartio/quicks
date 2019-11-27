@@ -4,3 +4,9 @@ class QuicksException(Exception):
 
 class PathExistsError(QuicksException):
     pass
+
+
+__all__ = (
+    'QuicksException',
+    'PathExistsError',
+)
