@@ -36,11 +36,10 @@ setup(
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
 
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        # 'Programming Language :: Python :: 3.8',
     ],
 
     # What does your project relate to?
@@ -54,7 +53,7 @@ setup(
     # project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
-    install_requires=['PyYAML==5.1.2', 'Jinja2==2.10.3'],
+    install_requires=['PyYAML>5.0,<6.0', 'Jinja2>=2.0,<3.0'],
     entry_points={
         'console_scripts': ['quicks=quicks.__main__:main'],
     }

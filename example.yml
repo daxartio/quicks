@@ -1,6 +1,10 @@
 version: 1
 
 vars:
+  version:
+    type: number
+    description: 'Project version:'
+    required: true
   title:
     type: string
     default: '{{project}}'
