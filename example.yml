@@ -1,22 +1,14 @@
 version: 1
 
-vars:
-  version:
-    type: number
-    description: 'Project version:'
-    required: true
-  title:
-    type: string
-    default: '{{project}}'
-    description: 'Project title:'
-  adding_gitignore:
-    type: boolean
-    default: true
-    description: 'Add .gitignore?'
+configs:
+  version: '1.0.0'
+  title: '{{project}}'
+  adding_gitignore: true
+  number: 1
 
 files:
-  - ['{{project}}/api/handlers/__init__.py', 'alias']
-  - ['{{project}}/api/__init__.py', 'alias']
+  - ['{{project}}/api/handlers/__init__.py', 'template']
+  - ['{{project}}/api/__init__.py', 'template']
   - '{{project}}/configs/logging.yml'
   - '{{project}}/spec/openapi.yaml'
   - '{{project}}/__init__.py'
@@ -28,7 +20,7 @@ files:
   - 'README.md'
 
 templates:
-  'alias': |
+  'template': |
     # auto generate
   '{{project}}/__init__.py': |
     import os
@@ -44,7 +36,7 @@ templates:
   '{{project}}/spec/openapi.yaml': |
     openapi: 3.0.1
     info:
-      title: {{project}}
+      title: {{project}} {{configs.number}}
       description: ''
       version: 0.0.1
     servers:

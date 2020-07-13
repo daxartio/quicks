@@ -5,7 +5,7 @@ Project generator
 ```
 pip install quicks
 
-quicks PROJECT_NAME example.yml
+quicks example.yml PROJECT_NAME
 ```
 
 example.yml Jinja2 style
