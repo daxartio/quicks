@@ -1,4 +1,4 @@
-__version__ = '0.0.5'
+__version__ = "0.0.6"
 
 import os
 
@@ -8,11 +8,11 @@ from jinja2 import BaseLoader, Environment
 from quicks.exceptions import PathExistsError
 
 __all__ = (
-    '__version__',
-    'get_env',
-    'parse_template',
-    'parse_template_by_stream',
-    'process_project',
+    "__version__",
+    "get_env",
+    "parse_template",
+    "parse_template_by_stream",
+    "process_project",
 )
 
 
@@ -24,7 +24,7 @@ def get_env():
     return Environment(loader=BaseLoader)
 
 
-def process_project(env, path, project, template, interactive=False, encoding='utf-8'):
+def process_project(env, path, project, template, interactive=False, encoding="utf-8"):
     """Process project generate"""
     project_path = os.path.join(path, project)
     _raise_for_exists_path(project_path)
@@ -43,15 +43,15 @@ def process_project(env, path, project, template, interactive=False, encoding='u
             raise ValueError
 
         if interactive:
-            val = input(f'{config_name} ({default_value}):')
-            if config_type == bool:
-                kwargs['configs'][config_name] = val.lower() in ('1', 'true')
+            val = input(f"{config_name} ({default_value}):")
+            if config_type is bool:
+                kwargs["configs"][config_name] = val.lower() in ("1", "true")
             elif val:
-                kwargs['configs'][config_name] = config_type(val)
+                kwargs["configs"][config_name] = config_type(val)
             else:
-                kwargs['configs'][config_name] = default_value
+                kwargs["configs"][config_name] = default_value
         else:
-            kwargs['configs'][config_name] = default_value
+            kwargs["configs"][config_name] = default_value
 
     os.makedirs(project_path)
 
@@ -59,7 +59,7 @@ def process_project(env, path, project, template, interactive=False, encoding='u
         alias = None
         if isinstance(file, list):
             file, alias, *_ = file
-        file_template = env.from_string(templates.get(alias or file, '')).render(
+        file_template = env.from_string(templates.get(alias or file, "")).render(
             **kwargs
         )
         file_name = env.from_string(file).render(**kwargs)
@@ -70,11 +70,11 @@ def process_project(env, path, project, template, interactive=False, encoding='u
         if not os.path.exists(file_dir):
             os.makedirs(file_dir)
 
-        with open(file_path, 'w', encoding=encoding) as f:
+        with open(file_path, "w", encoding=encoding) as f:
             f.write(file_template)
 
 
-def parse_template(path, encoding='utf-8'):
+def parse_template(path, encoding="utf-8"):
     """Parse yaml project template by file path"""
     with open(path, encoding=encoding) as f:
         return parse_template_by_stream(f)
@@ -85,10 +85,10 @@ def parse_template_by_stream(stream):
     data = yaml.load(stream, yaml.FullLoader)
 
     return (
-        data.get('files', []),
-        data.get('templates', {}),
-        data.get('configs', {}),
-        data.get('version', 0),
+        data.get("files", []),
+        data.get("templates", {}),
+        data.get("configs", {}),
+        data.get("version", 0),
     )
 
 
